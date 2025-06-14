@@ -73,7 +73,7 @@ const authenticateRefreshToken = async (data) => {
       { expiresIn: jwtExpiresIn }
     );
 
-    const updateToken = await factory.updateOneItemInDb(TokenModel, {email, refreshToken: token}, {accessToken})
+     await factory.updateOneItemInDb(TokenModel, {email, refreshToken: token}, {accessToken})
 
 
     return accessToken

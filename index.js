@@ -19,13 +19,13 @@ dotenv.config({ path: './config.env' });
 
 
 // Use the CORS middleware globally
-// app.use(cors({
-//   origin: '*',
-//   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-//   preflightContinue: false,
-//   optionsSuccessStatus: 204,  
-// }));
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,  
+}));
 
 app.options('*', cors()); // Preflight requests for all routes
 

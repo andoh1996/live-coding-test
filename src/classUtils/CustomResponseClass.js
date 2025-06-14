@@ -1,16 +1,17 @@
 /* eslint-disable prettier/prettier */
 
 class SuccessResponse {
-  constructor(code, status, data) {
+  constructor(code, success, message, data) {
     this.code = code;
-    this.status = status;
+    this.success = success;
+    this.message = message;
     this.data = data;
   }
 
   sendResponse(res) {
     return res.status(this.code).json({
-      status: this.status,
-      statusCode: this.code,
+      message: this.message,
+      success: true,
       data: this.data
     });
   }

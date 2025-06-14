@@ -52,6 +52,10 @@ app.use(
       { url: '/', methods: ['GET'] },
       { url: '/auth/register', methods: ['POST'] },
       { url: '/auth/login', methods: ['POST'] },
+      { url: '/auth/verify-email', methods: ['POST'] },
+      { url: '/auth/logout', methods: ['GET'] },
+
+      
     ],
   }),
 );

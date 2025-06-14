@@ -13,7 +13,7 @@ const errorHandler = (err, req, res, next) => {
   if (err instanceof CustomError) {
     return res.status(err.code).json({
       code: err.code,
-      status: 'fail',
+      success: false,
       message: err.message,
     });
   }

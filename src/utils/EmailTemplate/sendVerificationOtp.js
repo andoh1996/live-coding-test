@@ -1,22 +1,21 @@
 /* eslint-disable prettier/prettier */
 const ejs = require("ejs");
-
-//const {emailTransporter} = require('../utils/nodeMailerConfig')
-// eslint-disable-next-line no-unused-vars
-const sendEmailSendgrid = require('../sendGridconfiq')
 const {sendEmailNodeMailer} = require('../nodeMailerConfig')
 
  
+////////////////This function sends verification email on success registration///////
  const sendVerificationOtp = async(Data) => {
     try {
+
+      console.log(Data)
        const email = (Data.email).trim()
-        // eslint-disable-next-line no-path-concat, prefer-template
+   
         const data = await ejs.renderFile(__dirname + "/viewTemplate/verifyEmail.ejs", {Data});
 
         const mainOptions = {
-           from: 'Kulobal Health<benjamin.andoh@abibiman.org>',
+           from: 'Live Code <benjamin.andoh@abibiman.org>',
            to: email,
-           subject: 'Otp Verification details from Kulobal Health',
+           subject: 'Email verification after registration.',
            html: data
           };
 

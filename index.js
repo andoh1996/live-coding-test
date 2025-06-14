@@ -30,20 +30,20 @@ app.use(cors({
 app.options('*', cors()); // Preflight requests for all routes
 
 
-const allowCrossOrigin = (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // You can replace '*' with specific origins
-  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+// const allowCrossOrigin = (req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*'); // You can replace '*' with specific origins
+//   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+//   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  app.use(allowCrossOrigin);
+//   app.use(allowCrossOrigin);
 
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(204); // No Content for preflight requests
-  } else {
-    next();
-  }
- };
+//   // Handle preflight requests
+//   if (req.method === 'OPTIONS') {
+//     res.sendStatus(204); // No Content for preflight requests
+//   } else {
+//     next();
+//   }
+//  };
 
 // 1) MIDDLEWARES
 if (process.env.NODE_ENV === 'development') {

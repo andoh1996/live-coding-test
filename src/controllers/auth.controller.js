@@ -8,6 +8,7 @@ const CustomError = require('../classUtils/customErrorClass');
 const UserModel = require('../models/users.model');
 
 const authServices = require('../services/auth.service');
+const authMiddlware = require('../middlewares/auth.middleware')
 
 const userValidationSchema = require('../validators/users.validator')
 const loginValidationSchema = require('../validators/login.validator')
@@ -153,7 +154,23 @@ const getUserProfile = async(req, res, next) => {
      return next(error);
   }
 }
-  
+
+
+const getRefreshToken = async(req, res, next) => {
+  try {
+    const accessToken = await authMiddlware.authenticateRefreshToken(req.body);
+
+    const data = {
+      accessToken
+    }
+
+     const response =  new SuccessResponse(200, true, 'New access token generated successfully', data);
+
+    return response.sendResponse(res)
+  } catch (error) {
+     return next(error);
+  }
+}
 
   module.exports = {
    registerUser,
@@ -162,7 +179,8 @@ const getUserProfile = async(req, res, next) => {
    logOutUser,
    forgotPassword,
    resetPassword,
-   getUserProfile
+   getUserProfile,
+   getRefreshToken
 
 
   }

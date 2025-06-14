@@ -47,9 +47,9 @@ const authenticateToken = async (req, res, next) => {
   }
 };
 
-const authenticateRefreshToken = async (req, res, next) => {
+const authenticateRefreshToken = async (data) => {
   try {
-    const { token, email } = req.body;
+    const { token, email } = data;
 
     if (!token) {
       throw new CustomError(401, 'Refresh token required.');
@@ -73,11 +73,14 @@ const authenticateRefreshToken = async (req, res, next) => {
       { expiresIn: jwtExpiresIn }
     );
 
+    const updateToken = await factory.updateOneItemInDb(TokenModel, {email, refreshToken: token}, {accessToken})
+
 
     return accessToken
 
   } catch (error) {
-    next(error);
+    console.log(error)
+    //next(error);
   }
 };
 

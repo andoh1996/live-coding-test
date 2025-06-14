@@ -229,6 +229,7 @@ const getUserProfile = async(email) =>{
        address: user.address,
        role: user.role,
        email: user.email,
+       phone: user.phone,
        userId : user.userId
     }
 

@@ -25,6 +25,12 @@ const userValidationSchema = Joi.object({
       'string.empty': 'Please input your address',
     }),
 
+    role: Joi.string()
+    .required()
+    .messages({
+      'string.empty': 'Please input your user role',
+    }),
+
 
   email: Joi.string()
     .required()

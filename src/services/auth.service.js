@@ -17,7 +17,7 @@ const otpHandler = require('../utils/otpHandler.util')
 
 const registerUser = async(data) => {
   try {
-     const {firstName, lastName, address, email, password, confirmPassword} = data
+     const {firstName, lastName, address, email, password, confirmPassword, phone, role} = data
 
      ///////Ensure password has the required length/////
       if(password.length < 7){
@@ -47,7 +47,9 @@ const registerUser = async(data) => {
         lastName,
         address,
         email,
+        phone,
         userId,
+        role,
         password: hashedPassword
       }
 

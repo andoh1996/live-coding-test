@@ -12,7 +12,9 @@ router.post('/verify-email', authController.verifyEmail);
 
 router.get('/logout', authController.logOutUser);
 
+router.post('/forget-password', authController.forgotPassword);
 
+router.post('/reset-password', authController.resetPassword)
 
 
 

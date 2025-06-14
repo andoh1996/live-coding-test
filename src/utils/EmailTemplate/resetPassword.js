@@ -1,22 +1,21 @@
 /* eslint-disable prettier/prettier */
 const ejs = require("ejs");
-
-//const {emailTransporter} = require('../utils/nodeMailerConfig')
-// eslint-disable-next-line no-unused-vars
-const sendEmailSendgrid = require('../sendGridconfiq')
 const {sendEmailNodeMailer} = require('../nodeMailerConfig')
 
  
- const sendResetPasswordLink = async(Data) => {
+////////////////This function sends verification email on success registration///////
+ const sendResetPasswordOtp = async(Data) => {
     try {
+
+      console.log(Data)
        const email = (Data.email).trim()
-        // eslint-disable-next-line no-path-concat, prefer-template
+   
         const data = await ejs.renderFile(__dirname + "/viewTemplate/reset-password.ejs", {Data});
 
         const mainOptions = {
-           from: 'Kulobal Health <benjamin.andoh@abibiman.org>',
+           from: 'Live Code <benjamin.andoh@abibiman.org>',
            to: email,
-           subject: 'Reset password Otp',
+           subject: 'Reset password otp.',
            html: data
           };
 
@@ -37,5 +36,5 @@ const {sendEmailNodeMailer} = require('../nodeMailerConfig')
 
 
  module.exports = {
-     sendResetPasswordLink
+     sendResetPasswordOtp
  }

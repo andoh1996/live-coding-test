@@ -12,6 +12,7 @@ const authServices = require('../services/auth.service');
 const userValidationSchema = require('../validators/users.validator')
 const loginValidationSchema = require('../validators/login.validator')
 const verifyEmailValidationSchema = require('../validators/verifyEmail.validator');
+const resetPasswordValidationSchema = require('../validators/resetPassword.validator');
 
 
 const registerUser = async(req, res, next) => {
@@ -81,28 +82,70 @@ const loginUser = async(req, res, next) => {
   }
 }
 
-// const logOutUser = async(req, res, next) => {
-//   try {
-//      req.session.destroy(err => {
-//       if(err){
-//         throw new CustomError(400, 'Logout failed');
-//       }
+const logOutUser = async(req, res, next) => {
+  try {
+    await authServices.logOutUser();
 
-//       ///////Clear cookie
-//       res.clearCookie('connect.sid');
-//      })
+    const response =  new SuccessResponse(200, true, 'logout successful', null);
+
+    return response.sendResponse(res)
     
-//   } catch (error) {
-//     return next(error);
-//   }
-// }
+  } catch (error) {
+    return next(error);
+  }
+}
+
+
+const forgotPassword = async(req, res, next) => {
+  try {
+    const {email} = req.body;
+
+    if(!email){
+      throw new CustomError(400, 'Email is required');
+    }
+
+    const user = await authServices.forgotPassword(req.body);
+
+    const response =  new SuccessResponse(200, true, 'Otp has been sent to your email', null);
+
+    return response.sendResponse(res)
+
+  } catch (error) {
+    return next(error);
+  }
+}
   
+
+
+const resetPassword = async(req, res, next) => {
+  try {
+       const { error } = resetPasswordValidationSchema.validate(req.body, { abortEarly: false });
+
+     if (error) {
+        const errors= error.details.map(err => err.message)
+        throw new CustomError(400, errors);
+      }
+
+     await authServices.resetPassword(req.body);
+
+     const response =  new SuccessResponse(200, true, 'Password reset successfully', null);
+
+    return response.sendResponse(res)
+
+    
+  } catch (error) {
+    return next(error);
+  }
+}
   
 
   module.exports = {
    registerUser,
    loginUser,
    verifyEmail,
+   logOutUser,
+   forgotPassword,
+   resetPassword
 
 
   }

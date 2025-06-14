@@ -2,17 +2,16 @@ const OtpModel = require('../models/otp.model');
 
 const factory = require('../services/factory.service');
 
-const {sendVerificationOtp} = require('../utils/EmailTemplate/sendVerificationOtp')
+const {sendVerificationOtp} = require('../utils/EmailTemplate/sendVerificationOtp');
+
+const {sendResetPasswordOtp} = require('../utils/EmailTemplate/resetPassword')
+
+const helperFunctions = require('../helpers/helperFunctions')
 
 
 const createRegistrationOtp = async(email, name) => {
     try {
-        
-        const minimum = 1000;
-        const maximum = 9999
-
-        ///////generate random 4 numbers///////////////
-        const otp = Math.floor(Math.random() * (maximum - minimum + 1) + minimum);
+        const otp = helperFunctions.otpGenerator();
 
         const data = {
             email, otp
@@ -31,6 +30,29 @@ const createRegistrationOtp = async(email, name) => {
     }
 }
 
+const createResetPasswordOtp = async(email, name) => {
+    try {
+        const otp = helperFunctions.otpGenerator();
+
+        const data = {
+            email, otp
+        }
+
+        ////save otp to email/////////
+       await factory.saveToDb(OtpModel, data);
+
+       sendResetPasswordOtp({email, name, otp});
+
+       return true
+
+
+    } catch (error) {
+        throw error
+    }
+}
+
+
 module.exports = {
-    createRegistrationOtp
+    createRegistrationOtp,
+    createResetPasswordOtp
 }

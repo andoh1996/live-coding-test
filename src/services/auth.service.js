@@ -3,7 +3,8 @@ const bcrypt = require('bcryptjs');
 const CustomError = require('../classUtils/customErrorClass');
 
 const User = require('../models/users.model');
-const OtpModel = require('../models/otp.model')
+const OtpModel = require('../models/otp.model');
+const TokenModel = require('../models/tokens.model');
 
 const {v4: uuidv4} = require('uuid');
 
@@ -124,6 +125,14 @@ const loginUser = async(data) => {
      const {accessToken, refreshToken} = auth.generateAccessKey({
         userId: user.userId,
         role: user.role,
+        email : user.email
+     })
+
+     await factory.saveToDb(TokenModel, {
+       email:  user.email,
+       accessToken, 
+       refreshToken,
+       createdAt : new Date()
      })
 
      const loginData = {
@@ -139,15 +148,76 @@ const loginUser = async(data) => {
   }
 }
 
+const logOutUser = async(data) => {
+  try {
+    const{ email } = req.user.data.email
+
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+    ////Blacklist generated token associated with the user///////////////
+     await factory.updateManyItemInDb(TokenModel, {email, accessToken: token}, {blackListed: true});
+
+     return true
+
+  } catch (error) {
+    throw error
+  }
+}
 
 
+const forgotPassword = async(data) => {
+  try {
+    const {email} = data;
+
+    /////////Check if email exist in db/////////
+
+    const user = await factory.fetchOneItemFromDb(User, {email});
+
+    if(!user){
+       throw new CustomError(400, 'Email is not registered. ');
+    }
+
+    const name = `${user.firstName} ${user.lastName}`
+
+    ////////send reset password otp///
+    await otpHandler.createResetPasswordOtp(email, name);
+
+    return user;
+
+  } catch (error) {
+    throw error
+  }
+}
 
 
+const resetPassword = async(data) => {
+  try {
+     const {newPassword, otp, email} = data;
+
+     const otpData = await factory.fetchOneItemFromDb(OtpModel, {email, otp});
+
+     if(!otpData){
+      throw new CustomError(400, 'Wrong Otp.');
+     }
+
+     const password = await bcrypt.hash(newPassword, 10);
+
+     const updatedUser = await factory.updateOneItemInDb(User, {email}, {password});
+
+     return updatedUser
+  } catch (error) {
+     throw error
+  }
+}
 
 
 
   module.exports = {
     registerUser,
     loginUser,
-    verifyEmail
+    verifyEmail,
+    logOutUser,
+    forgotPassword,
+    resetPassword
   }

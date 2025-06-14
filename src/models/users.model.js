@@ -22,10 +22,19 @@ const userSchema = new mongoose.Schema({
     validate: [validator.isEmail, 'Please provide correct email'],
   },
 
+  address: {
+     type: String,
+     required: true
+  },
+
+  phone: {
+     type: String,
+     required: true
+  },
 
   role: {
     type: String,
-    enum: ['user', 'admin'],
+    enum: ['user', 'retailer'],
     default: 'user',
   },
 

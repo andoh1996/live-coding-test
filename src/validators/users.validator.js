@@ -13,6 +13,19 @@ const userValidationSchema = Joi.object({
       'string.empty': 'Please input your last name',
     }),
 
+  phone: Joi.string()
+    .required()
+    .messages({
+      'string.empty': 'Please input your phone',
+    }),
+
+   address: Joi.string()
+    .required()
+    .messages({
+      'string.empty': 'Please input your address',
+    }),
+
+
   email: Joi.string()
     .required()
     .messages({

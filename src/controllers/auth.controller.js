@@ -137,6 +137,22 @@ const resetPassword = async(req, res, next) => {
     return next(error);
   }
 }
+
+
+const getUserProfile = async(req, res, next) => {
+  try {
+    const email = req.user.data.email
+
+    const profile = await authServices.getUserProfile(email);
+
+    const response =  new SuccessResponse(200, true, 'User data fetched successfully', profile);
+
+    return response.sendResponse(res)
+
+  } catch (error) {
+     return next(error);
+  }
+}
   
 
   module.exports = {
@@ -145,7 +161,8 @@ const resetPassword = async(req, res, next) => {
    verifyEmail,
    logOutUser,
    forgotPassword,
-   resetPassword
+   resetPassword,
+   getUserProfile
 
 
   }

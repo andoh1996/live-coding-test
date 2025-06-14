@@ -212,6 +212,34 @@ const resetPassword = async(data) => {
 }
 
 
+const getUserProfile = async(email) =>{
+  try {
+
+    const user = await factory.fetchOneItemFromDb(User, {email});
+
+    if(!user){
+      throw new CustomError(404, 'User bot found');
+    }
+
+    const userData = {
+       lastName: user.lastName,
+       firstName: user.firstName,
+       address: user.address,
+       role: user.role,
+       email: user.email,
+       userId : user.userId
+    }
+
+    return userData
+    
+  } catch (error) {
+    throw error
+  }
+}
+
+const refreshToken = async()
+
+
 
   module.exports = {
     registerUser,
@@ -219,5 +247,6 @@ const resetPassword = async(data) => {
     verifyEmail,
     logOutUser,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    getUserProfile
   }

@@ -60,7 +60,29 @@ Auth Strategy: JWT. JWT is the industry standard for building secure, scalable, 
   DATABASE_PASSWORD: NQx15M2W4PbrdbC2
 
   # Api Documentaation
-  https://.postman.co/workspace/My-Workspace~4b66af7e-e317-4897-8dbc-bbd6d9506140/collection/30529588-42db89af-cf53-4afd-b026-19d31485c0ec?action=share&creator=30529588
+  Base live Url : https://live-coding-test.onrender.com
+
+  register new user
+  Post /auth/register
+  requestBody:
+  {
+    "firstName": "Benjamin",
+    "lastName": "Andoh",
+    "email": "benandoh1996@gmail.com",
+    "address": "Pokuase Mayera",
+    "phone": "+233241164088",
+    "role": "user",
+    "password": "password",
+    "confirmPassword": "password"
+    
+}
+
+response:
+  {
+    "message": "User registered successfully",
+    "success": true,
+    "data": null
+}
  
  
 

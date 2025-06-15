@@ -58,6 +58,9 @@ Auth Strategy: JWT. JWT is the industry standard for building secure, scalable, 
   PORT=4000
   DB_URI=mongodb+srv://bennyandoh:NQx15M2W4PbrdbC2@cluster0.yj3muva.mongodb.net/livecodedb?retryWrites=true&w=majority
   DATABASE_PASSWORD: NQx15M2W4PbrdbC2
+
+  # Api Documentaation
+  https://.postman.co/workspace/My-Workspace~4b66af7e-e317-4897-8dbc-bbd6d9506140/collection/30529588-42db89af-cf53-4afd-b026-19d31485c0ec?action=share&creator=30529588
  
  
 

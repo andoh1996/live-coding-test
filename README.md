@@ -38,7 +38,22 @@ Database: Mongodb
 Auth Strategy: JWT. JWT is the industry standard for building secure, scalable, stateless REST APIs and mobile backend services. Sessions are great for classic websites. JWTs shine when you have APIs + multiple frontends + scaling needs.
 
 # Setup Instructions
- Clone the repo
+ #Clone the repo
+ https://github.com/andoh1996/live-coding-test.git
+ 
+ #Navigate into the project directory
+  cd live-coding-test
+  
+  #Install dependencies
+    npm install
+
+  #Add your local configuration
+   DATABASE=mongodb+srv://bennyandoh:NQx15M2W4PbrdbC2@cluster0.yj3muva.mongodb.net/livecodedb?retryWrites=true&w=majority
+   DATABASE_PASSWORD=NQx15M2W4PbrdbC2
+
+  #Run the application
+    node server.js
+ 
  
 
 

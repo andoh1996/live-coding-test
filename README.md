@@ -62,27 +62,27 @@ Auth Strategy: JWT. JWT is the industry standard for building secure, scalable, 
   # Api Documentaation
   Base live Url : https://live-coding-test.onrender.com
 
-  register new user
-  Post /auth/register
+  register new user.
+  Post /auth/register.
   requestBody:
   {
-    "firstName": "Benjamin",
-    "lastName": "Andoh",
-    "email": "benandoh1996@gmail.com",
-    "address": "Pokuase Mayera",
-    "phone": "+233241164088",
-    "role": "user",
-    "password": "password",
-    "confirmPassword": "password"
-    
+  "firstName": "Benjamin",
+  "lastName": "Andoh",
+  "email": "benandoh1996@gmail.com",
+  "address": "Pokuase Mayera",
+  "phone": "+233241164088",
+  "role": "user",
+  "password": "password",
+  "confirmPassword": "password"
 }
 
-response:
-  {
-    "message": "User registered successfully",
-    "success": true,
-    "data": null
+
+{
+  "message": "User registered successfully",
+  "success": true,
+  "data": null
 }
+
  
  
 
